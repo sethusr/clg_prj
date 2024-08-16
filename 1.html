@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Career Prediction Using Advanced ML Techniques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            text-align: center;
+            color: #333;
+        }
+
+        header {
+            background-color: #00796b;
+            color: white;
+            padding: 20px 0;
+            font-size: 28px;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        video {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .prediction-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+            font-size: 16px;
+            color: #00796b;
+        }
+
+        .form-field input, .form-field select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .form-field button {
+            padding: 12px 20px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .form-field button:hover {
+            background-color: #004d40;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #004d40;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Student Career Prediction Using Advanced ML Techniques
+</header>
+
+<div class="container">
+    
+    <div class="prediction-form">
+        <h2>Career Prediction Form</h2>
+        
+        <!-- Basic Information -->
+        <div class="form-field">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-field">
+            <label for="age">Age:</label>
+            <input type="number" id="age" placeholder="Enter your age">
+        </div>
+        <div class="form-field">
+            <label for="education">Education Level:</label>
+            <select id="education">
+                <option value="">Select your education level</option>
+                <option value="high_school">High School</option>
+                <option value="bachelor">Bachelor's Degree</option>
+                <option value="master">Master's Degree</option>
+                <option value="phd">PhD</option>
+            </select>
+        </div>
+
+        <!-- Skill Inputs -->
+        <div class="form-field">
+            <label for="aptitude_skill">Aptitude Skill (out of 10):</label>
+            <input type="number" id="aptitude_skill" min="0" max="10" placeholder="Rate your aptitude skill">
+        </div>
+        <div class="form-field">
+            <label for="technical_skill">Technical Skill (out of 10):</label>
+            <input type="number" id="technical_skill" min="0" max="10" placeholder="Rate your technical skill">
+        </div>
+        <div class="form-field">
+            <label for="programming_languages">Programming Languages Known:</label>
+            <input type="text" id="programming_languages" placeholder="Enter languages separated by commas">
+        </div>
+        <div class="form-field">
+            <label for="logical_knowledge">Logical Knowledge (out of 10):</label>
+            <input type="number" id="logical_knowledge" min="0" max="10" placeholder="Rate your logical knowledge">
+        </div>
+
+        <!-- Additional Inputs -->
+        <div class="form-field">
+            <label for="communication_skill">Communication Skill (out of 10):</label>
+            <input type="number" id="communication_skill" min="0" max="10" placeholder="Rate your communication skill">
+        </div>
+        <div class="form-field">
+            <label for="teamwork_skill">Teamwork Skill (out of 10):</label>
+            <input type="number" id="teamwork_skill" min="0" max="10" placeholder="Rate your teamwork skill">
+        </div>
+        <div class="form-field">
+            <label for="creativity_skill">Creativity Skill (out of 10):</label>
+            <input type="number" id="creativity_skill" min="0" max="10" placeholder="Rate your creativity skill">
+        </div>
+        <div class="form-field">
+            <label for="problem_solving_skill">Problem-Solving Skill (out of 10):</label>
+            <input type="number" id="problem_solving_skill" min="0" max="10" placeholder="Rate your problem-solving skill">
+        </div>
+        <div class="form-field">
+            <label for="leadership_skill">Leadership Skill (out of 10):</label>
+            <input type="number" id="leadership_skill" min="0" max="10" placeholder="Rate your leadership skill">
+        </div>
+        <div class="form-field">
+            <label for="time_management_skill">Time Management Skill (out of 10):</label>
+            <input type="number" id="time_management_skill" min="0" max="10" placeholder="Rate your time management skill">
+        </div>
+        <div class="form-field">
+            <label for="project_management_skill">Project Management Skill (out of 10):</label>
+            <input type="number" id="project_management_skill" min="0" max="10" placeholder="Rate your project management skill">
+        </div>
+        <div class="form-field">
+            <label for="adaptability_skill">Adaptability Skill (out of 10):</label>
+            <input type="number" id="adaptability_skill" min="0" max="10" placeholder="Rate your adaptability skill">
+        </div>
+
+        <div class="form-field">
+            <button onclick="predictCareer()">Predict Career</button>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+</div>
+
+<script>
+    function predictCareer() {
+        var name = document.getElementById("name").value;
+        var aptitudeSkill = document.getElementById("aptitude_skill").value;
+        var technicalSkill = document.getElementById("technical_skill").value;
+        var programmingLanguages = document.getElementById("programming_languages").value;
+        var logicalKnowledge = document.getElementById("logical_knowledge").value;
+        var communicationSkill = document.getElementById("communication_skill").value;
+        var teamworkSkill = document.getElementById("teamwork_skill").value;
+        var creativitySkill = document.getElementById("creativity_skill").value;
+        var problemSolvingSkill = document.getElementById("problem_solving_skill").value;
+        var leadershipSkill = document.getElementById("leadership_skill").value;
+        var timeManagementSkill = document.getElementById("time_management_skill").value;
+        var projectManagementSkill = document.getElementById("project_management_skill").value;
+        var adaptabilitySkill = document.getElementById("adaptability_skill").value;
+        var education = document.getElementById("education").value;
+
+        // Example logic for predicting career
+        var resultText = "Based on the provided information, you might be suited for the following roles:\n\n";
+        
+        if (technicalSkill >= 7 && aptitudeSkill >= 7) {
+            resultText += "1. Software Engineer\n2. Data Scientist\n3. Machine Learning Engineer\n";
+        } else if (communicationSkill >= 7 && teamworkSkill >= 7) {
+            resultText += "1. Project Manager\n2. HR Manager\n3. Sales Executive\n";
+        } else if (creativitySkill >= 7 && problemSolvingSkill >= 7) {
+            resultText += "1. Graphic Designer\n2. Marketing Manager\n3. Product Manager\n";
+        } else {
+            resultText += "1. Customer Support Specialist\n2. Operations Manager\n3. Administrative Assistant\n";
+        }
+
+        document.getElementById("result").textContent = resultText;
+    }
+</script>
+
+</body>
+</html>
